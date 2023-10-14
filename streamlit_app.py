@@ -4,7 +4,7 @@ from audiorecorder import audiorecorder
 
 st.title("Team Tonic Demo")
 
-st.write("Take a picture first and speak your request for the model")
+st.subheader("Take a picture first and speak your request for the model")
 
 image = st.camera_input("Camera input")
 
@@ -24,8 +24,5 @@ if len(audio) > 0:
         result = model.transcribe(audio)
         
         st.success("Transcription complete")
-        st.markdown(result['text'])
-
-else:
-    st.error("Please record your request...")
-
+        with st.expander("See transcript")
+            st.markdown(result['text'])
