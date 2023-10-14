@@ -16,10 +16,10 @@ st.text("Whisper Model Loaded")
 if len(audio) > 0:
     st.audio(audio.export().read())
 
-    submit_button = st.button("Submit request")
+    submit_button = st.button("Use this audio")
 
     if submit_button:
-        st.info("Working...")
+        st.info("Transcribing...")
         
         result = model.transcribe(audio)
         
