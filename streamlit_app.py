@@ -10,8 +10,8 @@ image = st.camera_input("Camera input")
 
 audio = audiorecorder("Click to record audio", "Click to stop recording")
 
-## model = whisper.load_model("base")
-## st.text("Whisper Model Loaded")
+model = whisper.load_model("base")
+st.text("Whisper Model Loaded")
 
 if len(audio) > 0:
     st.audio(audio.export().read())
@@ -20,11 +20,11 @@ if len(audio) > 0:
 
     if submit_button:
         st.info("Working...")
-
-   # result = model.transcribe(audio)
-
-   # st.success("Transcription complete")
-   # st.markdown(result['text'])
+        
+        result = model.transcribe(audio)
+        
+        st.success("Transcription complete")
+        st.markdown(result['text'])
 
 else:
     st.error("Please record your request...")
