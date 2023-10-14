@@ -1,0 +1,4 @@
+streamlit
+openai-whisper
+fairseq2
+seamless_communication @ git+https://github.com/facebookresearch/seamless_communication@main
