@@ -24,5 +24,5 @@ if len(audio) > 0:
         result = model.transcribe(audio)
         
         st.success("Transcription complete")
-        with st.expander("See transcript")
+        with st.expander("See transcript"):
             st.markdown(result['text'])
