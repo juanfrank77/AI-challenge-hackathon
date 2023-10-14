@@ -6,26 +6,26 @@ st.title("Team Tonic Demo")
 
 st.write("Take a picture first and speak your request for the model")
 
-image = st.camera_input("Take a picture")
+image = st.camera_input("Camera input")
 
-audio = audiorecorder("Click to record", "Click to stop recording")
+audio = audiorecorder("Click to record audio", "Click to stop recording")
 
 ## model = whisper.load_model("base")
 ## st.text("Whisper Model Loaded")
 
-if audio is not None:
+if len(audio) > 0:
     st.audio(audio.export().read())
 
     submit_button = st.button("Submit request")
 
-    st.info("Working...")
+    if submit_button:
+        st.info("Working...")
 
-"""
-    result = model.transcribe(audio)
+   # result = model.transcribe(audio)
 
-    st.success("Transcription complete")
-    st.markdown(result['text'])
+   # st.success("Transcription complete")
+   # st.markdown(result['text'])
 
 else:
     st.error("Please record your request...")
-"""
+
