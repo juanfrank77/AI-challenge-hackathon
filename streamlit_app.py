@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 import whisper
 from audiorecorder import audiorecorder
 from gradio_client import Client
@@ -23,8 +24,13 @@ if len(audio) > 0:
 
     if submit_button:
         st.info("Transcribing...")
+        # Convert the AudioSegment to a NumPy array
+        samples = np.array(audio.get_array_of_samples())
+        # Reshape the NumPy array to represent a 2D array where the first dimension is the number of channels 
+        # and the second dimension is the number of samples
+        samples = samples.reshape((-1, audio.channels))
         
-        result = model.transcribe(audio)
+        result = model.transcribe(samples)
         
         st.success("Transcription complete")
         with st.expander("See transcript"):
