@@ -1,5 +1,5 @@
 import streamlit as st
-from audiorecorder import audiorecorder
+from st_audiorec import st_audiorec
 from gradio_client import Client
 import whisper
 
@@ -9,12 +9,12 @@ st.subheader("Take a picture first and speak your request for the model")
 
 image = st.camera_input("Camera input")
 
-audio = audiorecorder("Click to record audio", "Click to stop recording")
+audio_data = st_audiorec()
 
 client = Client("https://ysharma-llava-v1.hf.space/--replicas/5hq2h/")
 
-if len(audio) > 0:
-    st.audio(audio)
+if audio_data is not None:
+    st.audio(audio_data, format='audio/wav')
 
     submit_button = st.button("Use this audio")
 
