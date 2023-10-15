@@ -9,7 +9,7 @@ st.subheader("Take a picture first and speak your request for the model")
 
 image = st.camera_input("Camera input")
 
-audio = audiorecorder("Click to record", "Click to stop recording")
+audio = audiorecorder("Click to record audio", "Click to stop recording")
 
 model = whisper.load_model("base")
 
@@ -21,6 +21,8 @@ if len(audio) > 0:
     submit_button = st.button("Use this audio")
 
     if submit_button:
+        # Audio recording must be converted first before feeding it to Whisper
+        converted = np.array(audio.get_array_of_samples(), dtype=np.float32).reshape((-1, audio.channels))
         
         result = model.transcribe(converted)
         st.info("Transcribing...")
@@ -32,6 +34,7 @@ if len(audio) > 0:
             st.markdown(transcript)
 
         st.text("Sending image and request to the model. Please wait...")
+       # Sample API call to LLavA 
        # result = client.predict(
        #     transcript,
        #     image,
@@ -39,3 +42,4 @@ if len(audio) > 0:
        #     fn_index=7
        # )
        # print(result)
+       # The 'result' variable holds the response to use for Text-to-Speech  
