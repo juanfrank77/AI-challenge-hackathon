@@ -21,6 +21,7 @@ if audio_data is not None:
     submit_button = st.button("Use this audio")
 
     if submit_button:
+        st.write(type(audio_data))
         signal, _ = open_audio(audio_data)
         result = model.transcribe(signal)
         st.info("Transcribing...")
