@@ -1,6 +1,6 @@
 import streamlit as st
-from audio2numpy import open_audio
-from st_audiorec import st_audiorec
+import numpy as np
+from audiorecorder import audiorecorder
 from gradio_client import Client
 import whisper
 
@@ -9,21 +9,20 @@ st.subheader("Take a picture first and speak your request for the model")
 
 image = st.camera_input("Camera input")
 
-audio_data = st_audiorec()
+audio = audiorecorder("Click to record", "Click to stop recording")
 
 model = whisper.load_model("base")
 
 client = Client("https://ysharma-llava-v1.hf.space/--replicas/5hq2h/")
 
-if audio_data is not None:
-    st.audio(audio_data, format='audio/wav')
+if len(audio) > 0:
+    st.audio(audio.export().read())
 
     submit_button = st.button("Use this audio")
 
     if submit_button:
-        st.write(type(audio_data))
-        signal, _ = open_audio(audio_data)
-        result = model.transcribe(signal)
+        
+        result = model.transcribe(converted)
         st.info("Transcribing...")
         
         st.success("Transcription complete")
