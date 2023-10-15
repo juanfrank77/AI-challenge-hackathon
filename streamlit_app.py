@@ -1,4 +1,5 @@
 import streamlit as st
+from audio2numpy import open_audio
 from st_audiorec import st_audiorec
 from gradio_client import Client
 import whisper
@@ -20,11 +21,13 @@ if audio_data is not None:
     submit_button = st.button("Use this audio")
 
     if submit_button:
+        signal, _ = open_audio(audio_data)
+        result = model.transcribe(signal)
         st.info("Transcribing...")
-        result = model.transcribe(audio_data)
-        transcript = result['text']
         
         st.success("Transcription complete")
+        transcript = result['text']
+        
         with st.expander("See transcript"):
             st.markdown(transcript)
 
